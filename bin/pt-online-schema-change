@@ -11578,9 +11578,10 @@ sub check_orig_table {
                . "needs to create its own triggers, so the table cannot "
                . "already have triggers.\n";
       } elsif ( ( VersionCompare::cmp($version, '5.7.0') >= 0 || VersionCompare::cmp($version, '10.0.0') >0 )
-         && !$o->get('preserve-triggers') ) {
+         && !$o->get('preserve-triggers') && $o->get('drop-triggers') ) {
          die "The table $orig_tbl->{name} has triggers but --preserve-triggers was not specified.\n"
-         . "Please read the documentation for --preserve-triggers.\n";
+         . "Please read the documentation for --preserve-triggers.\n"
+         . "You can continue if you are not dropping triggers.\n";
          }
       }
    }
